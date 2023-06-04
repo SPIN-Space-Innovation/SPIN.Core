@@ -22,4 +22,5 @@
  * SOFTWARE.
  */
 
-global using MediatR;
+global using MediatR;
+global using UnitsNet;
