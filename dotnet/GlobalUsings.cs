@@ -24,3 +24,9 @@
 
 global using MediatR;
 global using UnitsNet;
+
+global using SPIN.Core.Contracts.Requests.Abstractions;
+global using SPIN.Core.Contracts.Requests.SensorRequests;
+global using SPIN.Core.Contracts.Responses.Abstractions;
+global using SPIN.Core.Contracts.Responses;
+
