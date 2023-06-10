@@ -30,3 +30,4 @@ global using SPIN.Core.Contracts.Requests.SensorRequests;
 global using SPIN.Core.Contracts.Responses.Abstractions;
 global using SPIN.Core.Contracts.Responses;
 global using SPIN.Core.Sensors.Abstractions;
+global using SPIN.Core.Services.Abstractions;
