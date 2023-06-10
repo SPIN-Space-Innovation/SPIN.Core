@@ -35,10 +35,11 @@ public sealed class I2cConnectionSettingsInstaller : IInstaller
     {
         get
         {
-            IEnumerable<string> filesInDev = Directory.EnumerateFiles(
+            List<string> filesInDev = Directory.EnumerateFiles(
                 "/dev/",
                 "*.*",
-                SearchOption.AllDirectories);
+                SearchOption.AllDirectories)
+                .ToList();
 
             foreach (string file in filesInDev)
             {
