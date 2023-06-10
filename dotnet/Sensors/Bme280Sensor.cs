@@ -1,8 +1,12 @@
 using Iot.Device.Bmxx80;
 
-namespace SPIN.Core.Sensors.Abstractions;
+namespace SPIN.Core.Sensors;
 
-public class Bme280Sensor : IPressureSensor, IRelativeHumiditySensor, ITemperatureSensor, IDisposable
+public sealed class Bme280Sensor :
+    IPressureSensor,
+    IRelativeHumiditySensor,
+    ITemperatureSensor,
+    IDisposable
 {
     private I2cDevice _i2cDevice;
     private Bme280 _bme280;
