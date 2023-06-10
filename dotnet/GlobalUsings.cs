@@ -22,6 +22,11 @@
  * SOFTWARE.
  */
 
+global using System.Device.I2c;
+
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+
 global using MediatR;
 global using UnitsNet;
 
