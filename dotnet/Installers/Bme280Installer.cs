@@ -22,6 +22,8 @@
  * SOFTWARE.
  */
 
+using SPIN.Core.Sensors;
+
 namespace SPIN.Core.Installers;
 
 public sealed class Bme280Installer : IInstaller
