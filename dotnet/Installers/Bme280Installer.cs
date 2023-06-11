@@ -32,13 +32,17 @@ public sealed class Bme280Installer : IInstaller
 
     private Bme280Sensor RegisterBme280Sensor(IServiceProvider serviceProvider)
     {
-        if (_bme280 is null)
+        if (_bme280 is not null)
         {
-            IEnumerable<I2cConnectionSettings> i2cConnectionSettings = serviceProvider
-                .GetServices<I2cConnectionSettings>();
-
-            _bme280 = new Bme280Sensor(i2cConnectionSettings);
+            return _bme280;
         }
+
+        // ReSharper disable once InconsistentNaming
+        IEnumerable<I2cConnectionSettings> i2cConnectionSettings = serviceProvider
+            .GetServices<I2cConnectionSettings>();
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        _bme280 = new Bme280Sensor(i2cConnectionSettings);
 
         return _bme280;
     }
@@ -47,8 +51,11 @@ public sealed class Bme280Installer : IInstaller
 
     public void InstallService(IServiceCollection serviceCollection, IConfiguration configuration)
     {
+        // ReSharper disable once HeapView.DelegateAllocation
         serviceCollection.AddSingleton<IPressureSensor, Bme280Sensor>(RegisterBme280Sensor);
+        // ReSharper disable once HeapView.DelegateAllocation
         serviceCollection.AddSingleton<IRelativeHumiditySensor, Bme280Sensor>(RegisterBme280Sensor);
+        // ReSharper disable once HeapView.DelegateAllocation
         serviceCollection.AddSingleton<ITemperatureSensor, Bme280Sensor>(RegisterBme280Sensor);
     }
 }
