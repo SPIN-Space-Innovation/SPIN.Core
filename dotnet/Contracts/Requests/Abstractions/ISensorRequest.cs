@@ -22,9 +22,11 @@
  * SOFTWARE.
  */
 
+using IRequest = SPIN.Core.Contracts.Requests.Abstractions.IRequest;
+
 namespace SPIN.Core.Contracts.Requests.Abstractions;
 
-public interface ISensorRequest
+public interface ISensorRequest : IRequest
 {
     public Guid Id { get; }
 }
