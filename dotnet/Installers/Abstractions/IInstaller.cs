@@ -28,5 +28,7 @@ public interface IInstaller
 {
     public ulong Priority { get; }
 
+    public bool CanInstall(IServiceCollection serviceCollection, IConfiguration configuration);
+
     public void InstallService(IServiceCollection serviceCollection, IConfiguration configuration);
 }
