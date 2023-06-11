@@ -22,53 +22,57 @@
  * SOFTWARE.
  */
 
-using System.Text.RegularExpressions;
-
 namespace SPIN.Core.Installers;
 
+// ReSharper disable once InconsistentNaming
 public sealed class I2cConnectionSettingsInstaller : IInstaller
 {
-    private static readonly Regex s_i2CRegexDetector = new Regex(@"(/dev/i2c)(-|/)(?<busId>\d)");
-    private List<int> _busIds = new();
+    // ReSharper disable once InconsistentNaming
+    private static bool I2cBusExists(int busId)
+    {
+        // ReSharper disable once InconsistentNaming
+        bool i2cBusExists = File.Exists($"/dev/i2c-{busId}") || File.Exists($"/dev/i2c/{busId}");
+
+        return i2cBusExists;
+    }
 
     public bool CanInstall
     {
         get
         {
-            List<string> filesInDev = Directory.EnumerateFiles(
-                "/dev/",
-                "*.*",
-                SearchOption.AllDirectories)
-                .ToList();
-
-            foreach (string file in filesInDev)
+            for (int i = 0; i <= 255; i++)
             {
-                var notAnI2cFile = s_i2CRegexDetector.IsMatch(file);
-                if (notAnI2cFile)
-                {
-                    continue;
-                }
+                // ReSharper disable once InconsistentNaming
+                bool i2cBusExists = I2cBusExists(i);
 
-                Match matches = s_i2CRegexDetector.Match(file);
-                var didNotParse = int.TryParse(matches.Groups["busId"].Value, out int busId);
-                if (didNotParse)
+                if (i2cBusExists)
                 {
-                    continue;
+                    return true;
                 }
-
-                _busIds.Add(busId);
             }
 
-            return _busIds.Count != 0;
+            return false;
         }
     }
 
     public void InstallService(IServiceCollection serviceCollection, IConfiguration configuration)
     {
-        foreach (int busId in _busIds)
+        // ReSharper disable once HeapView.ClosureAllocation
+        // ReSharper disable once HeapView.ObjectAllocation.Possible
+        foreach (int busId in Enumerable.Range(0, 255))
         {
-            serviceCollection.AddTransient<I2cConnectionSettings>((serviceProvider) =>
-                new I2cConnectionSettings(busId, 0));
+            // ReSharper disable once InconsistentNaming
+            bool i2cBusDoesntExist = !I2cBusExists(busId);
+
+            if (i2cBusDoesntExist)
+            {
+                continue;
+            }
+
+            // ReSharper disable once HeapView.DelegateAllocation
+            serviceCollection.AddTransient<I2cConnectionSettings>(provider =>
+                // ReSharper disable once HeapView.ObjectAllocation.Evident
+                new I2cConnectionSettings(busId, default));
         }
     }
 }
