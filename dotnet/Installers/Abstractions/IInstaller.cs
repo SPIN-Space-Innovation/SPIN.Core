@@ -26,7 +26,7 @@ namespace SPIN.Core.Installers.Abstractions;
 
 public interface IInstaller
 {
-    public bool CanInstall { get; }
+    public ulong Priority { get; }
 
     public void InstallService(IServiceCollection serviceCollection, IConfiguration configuration);
 }
