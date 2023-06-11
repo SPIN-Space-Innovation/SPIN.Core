@@ -22,6 +22,10 @@
  * SOFTWARE.
  */
 
+using Iot.Device.Bmxx80;
+using Iot.Device.Bmxx80.ReadResult;
+
+using SPIN.Core.Extensions;
 using SPIN.Core.Sensors;
 
 namespace SPIN.Core.Installers;
@@ -47,7 +51,70 @@ public sealed class Bme280Installer : IInstaller
         return _bme280;
     }
 
-    public bool CanInstall { get; } = true;
+    public ulong Priority
+    {
+        get
+        {
+            return 1024;
+        }
+    }
+
+    public bool CanInstall(IServiceCollection serviceCollection, IConfiguration configuration)
+    {
+        // ReSharper disable once InconsistentNaming
+        IEnumerable<I2cConnectionSettings> i2cConnectionSettings =
+            serviceCollection.GetServices<I2cConnectionSettings>();
+
+        // ReSharper disable once InconsistentNaming
+        // ReSharper disable once PossibleMultipleEnumeration
+        bool noI2cConnectionSettings = !i2cConnectionSettings.Any();
+        if (noI2cConnectionSettings)
+        {
+            return false;
+        }
+
+        // ReSharper disable once PossibleMultipleEnumeration
+        // ReSharper disable once InconsistentNaming
+        // ReSharper disable once HeapView.ObjectAllocation.Possible
+        foreach (I2cConnectionSettings i2cConnectionSetting in i2cConnectionSettings)
+        {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            var bme280ConnectionSetting =
+                new I2cConnectionSettings(i2cConnectionSetting.BusId, Bmx280Base.DefaultI2cAddress);
+            // ReSharper disable once InconsistentNaming
+            using (var i2cDevice = I2cDevice.Create(bme280ConnectionSetting))
+            {
+                using var bme280 = new Bme280(i2cDevice);
+                Bme280ReadResult result = bme280.Read();
+                bool bme280Detected = (result.Pressure is not null) &&
+                                      (result.Humidity is not null) &&
+                                      (result.Temperature is not null);
+                if (bme280Detected)
+                {
+                    return true;
+                }
+            }
+
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            bme280ConnectionSetting = new I2cConnectionSettings(i2cConnectionSetting.BusId,
+                Bmx280Base.SecondaryI2cAddress);
+            // ReSharper disable once InconsistentNaming
+            using (var i2cDevice = I2cDevice.Create(bme280ConnectionSetting))
+            {
+                using var bme280 = new Bme280(i2cDevice);
+                Bme280ReadResult result = bme280.Read();
+                bool bme280Detected = (result.Pressure is not null) &&
+                                      (result.Humidity is not null) &&
+                                      (result.Temperature is not null);
+                if (bme280Detected)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 
     public void InstallService(IServiceCollection serviceCollection, IConfiguration configuration)
     {
