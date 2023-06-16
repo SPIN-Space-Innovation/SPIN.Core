@@ -30,3 +30,10 @@
 #else
     #include <cstdint>
 #endif
+
+struct SPIN_Guid_t {
+    uint32_t Data1;
+    uint16_t Data2;
+    uint16_t Data3;
+    uint64_t Data4;
+};
