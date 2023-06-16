@@ -26,6 +26,7 @@
 #pragma once
 
 #if !defined(__cplusplus)
+    #include <stdbool.h>
     #include <stdint.h>
 #else
     #include <cstdint>
