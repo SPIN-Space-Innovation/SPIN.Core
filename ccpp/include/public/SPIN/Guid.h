@@ -24,3 +24,9 @@
  */
 
 #pragma once
+
+#if !defined(__cplusplus)
+    #include <stdint.h>
+#else
+    #include <cstdint>
+#endif
