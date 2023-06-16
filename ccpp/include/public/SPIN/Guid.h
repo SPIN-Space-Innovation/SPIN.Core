@@ -40,3 +40,5 @@ struct SPIN_Guid_t {
 };
 
 bool SPIN_Guid_EmptyGuid(struct SPIN_Guid_t* guid);
+
+bool SPIN_Guid_NewGuid(struct SPIN_Guid_t* guid);
