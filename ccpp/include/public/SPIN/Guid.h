@@ -38,3 +38,5 @@ struct SPIN_Guid_t {
     uint16_t Data3;
     uint64_t Data4;
 };
+
+bool SPIN_Guid_EmptyGuid(struct SPIN_Guid_t* guid);
