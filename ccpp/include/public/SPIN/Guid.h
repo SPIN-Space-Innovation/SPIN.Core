@@ -34,6 +34,11 @@
     #include <cstdint>
 #endif
 
+#if defined(__cplusplus)
+extern "C"
+{
+#endif
+
 struct SPIN_Core_Guid_t {
     uint32_t Data1;
     uint16_t Data2;
@@ -48,3 +53,7 @@ bool SPIN_Core_Guid_NewGuid(struct SPIN_Guid_t* guid);
 bool SPIN_Core_Guid_Equals(struct SPIN_Guid_t* guidLeft, struct SPIN_Guid_t* guidRight, bool* result);
 
 int32_t SPIN_Core_Guid_ToString(struct SPIN_Guid_t* guid, const char* fmt, char* str, size_t strSize);
+
+#if defined(__cplusplus)
+}
+#endif
