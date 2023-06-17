@@ -23,3 +23,4 @@
 set(SPIN_Core_SRC_C "${CMAKE_CURRENT_LIST_DIR}/EmptyGuid.c;${SPIN_Core_SRC_C}")
 set(SPIN_Core_SRC_C "${CMAKE_CURRENT_LIST_DIR}/NewGuid.c;${SPIN_Core_SRC_C}")
 set(SPIN_Core_SRC_C "${CMAKE_CURRENT_LIST_DIR}/Equals.c;${SPIN_Core_SRC_C}")
+set(SPIN_Core_SRC_C "${CMAKE_CURRENT_LIST_DIR}/ToString.c;${SPIN_Core_SRC_C}")
