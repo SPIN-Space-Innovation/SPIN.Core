@@ -46,13 +46,13 @@ struct SPIN_Core_Guid_t {
     uint64_t Data4;
 };
 
-bool SPIN_Core_Guid_EmptyGuid(struct SPIN_Guid_t* guid);
+bool SPIN_Core_Guid_EmptyGuid(struct SPIN_Core_Guid_t* guid);
 
-bool SPIN_Core_Guid_NewGuid(struct SPIN_Guid_t* guid);
+bool SPIN_Core_Guid_NewGuid(struct SPIN_Core_Guid_t* guid);
 
-bool SPIN_Core_Guid_Equals(struct SPIN_Guid_t* guidLeft, struct SPIN_Guid_t* guidRight, bool* result);
+bool SPIN_Core_Guid_Equals(struct SPIN_Core_Guid_t* guidLeft, struct SPIN_Core_Guid_t* guidRight, bool* result);
 
-int32_t SPIN_Core_Guid_ToString(struct SPIN_Guid_t* guid, const char* fmt, char* str, size_t strSize);
+int32_t SPIN_Core_Guid_ToString(struct SPIN_Core_Guid_t* guid, const char* fmt, char* str, size_t strSize);
 
 #if defined(__cplusplus)
 }

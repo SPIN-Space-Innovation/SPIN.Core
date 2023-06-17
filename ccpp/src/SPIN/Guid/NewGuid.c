@@ -30,9 +30,9 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-bool SPIN_Core_Guid_NewGuid(struct SPIN_Guid_t* guid)
+bool SPIN_Core_Guid_NewGuid(struct SPIN_Core_Guid_t* guid)
 {
-    bool guidIsNull = (guid == (struct SPIN_Guid_t*)NULL);
+    bool guidIsNull = (guid == (struct SPIN_Core_Guid_t*)NULL);
     if (guidIsNull)
     {
         return false;
