@@ -31,7 +31,7 @@
 
 #define EQUAL_COMPARISON (0)
 
-bool SPIN_Guid_Equals(struct SPIN_Guid_t* guidLeft, struct SPIN_Guid_t* guidRight, bool* result)
+bool SPIN_Core_Guid_Equals(struct SPIN_Guid_t* guidLeft, struct SPIN_Guid_t* guidRight, bool* result)
 {
     bool guidLeftIsNull = (guidLeft == (struct SPIN_Guid_t*)NULL);
     bool guidRightIsNull = (guidRight == (struct SPIN_Guid_t*)NULL);

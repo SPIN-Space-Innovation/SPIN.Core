@@ -29,7 +29,7 @@
 #include <stddef.h>
 #include <string.h>
 
-bool SPIN_Guid_EmptyGuid(struct SPIN_Guid_t* guid)
+bool SPIN_Core_Guid_EmptyGuid(struct SPIN_Guid_t* guid)
 {
     bool guidIsNull = (guid == (struct SPIN_Guid_t*)NULL);
     if (guidIsNull)

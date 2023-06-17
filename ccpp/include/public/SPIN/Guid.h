@@ -34,17 +34,17 @@
     #include <cstdint>
 #endif
 
-struct SPIN_Guid_t {
+struct SPIN_Core_Guid_t {
     uint32_t Data1;
     uint16_t Data2;
     uint16_t Data3;
     uint64_t Data4;
 };
 
-bool SPIN_Guid_EmptyGuid(struct SPIN_Guid_t* guid);
+bool SPIN_Core_Guid_EmptyGuid(struct SPIN_Guid_t* guid);
 
-bool SPIN_Guid_NewGuid(struct SPIN_Guid_t* guid);
+bool SPIN_Core_Guid_NewGuid(struct SPIN_Guid_t* guid);
 
-bool SPIN_Guid_Equals(struct SPIN_Guid_t* guidLeft, struct SPIN_Guid_t* guidRight, bool* result);
+bool SPIN_Core_Guid_Equals(struct SPIN_Guid_t* guidLeft, struct SPIN_Guid_t* guidRight, bool* result);
 
-int32_t SPIN_Guid_ToString(struct SPIN_Guid_t* guid, const char* fmt, char* str, size_t strSize);
+int32_t SPIN_Core_Guid_ToString(struct SPIN_Guid_t* guid, const char* fmt, char* str, size_t strSize);

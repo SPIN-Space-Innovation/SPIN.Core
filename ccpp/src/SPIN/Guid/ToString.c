@@ -93,7 +93,7 @@ static int32_t _formatterSizes[26] = {
 
 static const char* _defaultFmt = "D";
 
-int32_t SPIN_Guid_ToString(struct SPIN_Guid_t* guid, const char* fmt, char* str, size_t strSize)
+int32_t SPIN_Core_Guid_ToString(struct SPIN_Guid_t* guid, const char* fmt, char* str, size_t strSize)
 {
     bool guidIsNull = (guid == (struct SPIN_Guid_t*)NULL);
     if (guidIsNull)
