@@ -46,3 +46,5 @@ bool SPIN_Guid_EmptyGuid(struct SPIN_Guid_t* guid);
 bool SPIN_Guid_NewGuid(struct SPIN_Guid_t* guid);
 
 bool SPIN_Guid_Equals(struct SPIN_Guid_t* guidLeft, struct SPIN_Guid_t* guidRight, bool* result);
+
+int32_t SPIN_Guid_ToString(struct SPIN_Guid_t* guid, const char* fmt, char* str, size_t strSize);
