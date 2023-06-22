@@ -28,6 +28,7 @@ namespace SPIN.Core.Installers;
 
 public sealed class Bme280SensorInstaller : IInstaller
 {
+    private static readonly byte s_bme280ChipIdRegister = 0xD0;
     private static readonly byte s_bme280ChipId = 0x60;
 
     // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -37,7 +38,7 @@ public sealed class Bme280SensorInstaller : IInstaller
     private static bool TestForChipId(I2cDevice i2CDevice)
     {
         // ReSharper disable once RedundantCast
-        Span<byte> writeSpan = stackalloc[] { (byte)0xD0 };
+        Span<byte> writeSpan = stackalloc[] { s_bme280ChipIdRegister };
         Span<byte> readSpan = stackalloc byte[1];
 
         try
