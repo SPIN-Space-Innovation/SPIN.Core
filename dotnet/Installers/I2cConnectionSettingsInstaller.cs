@@ -46,13 +46,13 @@ public sealed class I2cConnectionSettingsInstaller : IInstaller
         }
     }
 
-    public bool CanInstall(IServiceCollection serviceCollection, IConfiguration configuration)
+    public Task<bool> CanInstallAsync(IServiceCollection serviceCollection, IConfiguration configuration)
     {
         bool notLinux = !RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
 
         if (notLinux)
         {
-            return false;
+            return Task.FromResult(false);
         }
 
         for (int i = 0; i <= 255; i++)
@@ -62,14 +62,14 @@ public sealed class I2cConnectionSettingsInstaller : IInstaller
 
             if (i2cBusExists)
             {
-                return true;
+                return Task.FromResult(true);
             }
         }
 
-        return false;
+        return Task.FromResult(false);
     }
 
-    public void InstallService(IServiceCollection serviceCollection, IConfiguration configuration)
+    public Task InstallServiceAsync(IServiceCollection serviceCollection, IConfiguration configuration)
     {
         // ReSharper disable once HeapView.ClosureAllocation
         // ReSharper disable once HeapView.ObjectAllocation.Possible
@@ -84,9 +84,11 @@ public sealed class I2cConnectionSettingsInstaller : IInstaller
             }
 
             // ReSharper disable once HeapView.DelegateAllocation
-            serviceCollection.AddTransient<I2cConnectionSettings>(provider =>
+            serviceCollection.AddTransient<I2cBus>(provider =>
                 // ReSharper disable once HeapView.ObjectAllocation.Evident
-                new I2cConnectionSettings(busId, default));
+                I2cBus.Create(busId));
         }
+
+        return Task.CompletedTask;
     }
 }
