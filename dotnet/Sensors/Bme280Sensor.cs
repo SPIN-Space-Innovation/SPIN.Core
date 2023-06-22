@@ -11,34 +11,16 @@ public sealed class Bme280Sensor :
     private I2cDevice _i2cDevice;
     private Bme280 _bme280;
 
-    public Bme280Sensor(IEnumerable<I2cConnectionSettings> i2cConnectionSettings)
+    public Bme280Sensor(I2cConnectionSettings i2cConnectionSettings)
     {
-        IEnumerable<I2cConnectionSettings> i2CConnectionSettingsEnumerable = i2cConnectionSettings as
-            I2cConnectionSettings[] ??
-            i2cConnectionSettings.ToArray();
-
-        var noI2cConnectionSettings = !i2CConnectionSettingsEnumerable.Any();
-        if (noI2cConnectionSettings)
+        _i2cDevice = I2cDevice.Create(i2cConnectionSettings);
+        try
         {
-            throw new ArgumentException(nameof(i2cConnectionSettings));
+            _bme280 = new Bme280(_i2cDevice);
         }
-
-        for (var i = 0; i < i2CConnectionSettingsEnumerable.Count(); i++)
+        catch
         {
-            var i2cConnectionSetting = i2CConnectionSettingsEnumerable.ElementAt(i);
-            i2cConnectionSetting = new(
-                i2cConnectionSetting.DeviceAddress,
-                Bmx280Base.DefaultI2cAddress);
-
-            _i2cDevice = I2cDevice.Create(i2cConnectionSetting);
-            try
-            {
-                _bme280 = new Bme280(_i2cDevice);
-            }
-            catch
-            {
-                _i2cDevice?.Dispose();
-            }
+            _i2cDevice?.Dispose();
         }
     }
 
