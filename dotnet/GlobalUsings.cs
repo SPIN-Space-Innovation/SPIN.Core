@@ -27,6 +27,7 @@ global using System.Device.I2c;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 
+global using Iot.Device.Board;
 global using MediatR;
 global using UnitsNet;
 
@@ -34,6 +35,8 @@ global using SPIN.Core.Contracts.Requests.Abstractions;
 global using SPIN.Core.Contracts.Requests.SensorRequests;
 global using SPIN.Core.Contracts.Responses.Abstractions;
 global using SPIN.Core.Contracts.Responses;
+global using SPIN.Core.Extensions;
 global using SPIN.Core.Installers.Abstractions;
 global using SPIN.Core.Sensors.Abstractions;
+global using SPIN.Core.Sensors;
 global using SPIN.Core.Services.Abstractions;

@@ -23,10 +23,6 @@
  */
 
 using Iot.Device.Bmxx80;
-using Iot.Device.Board;
-
-using SPIN.Core.Extensions;
-using SPIN.Core.Sensors;
 
 namespace SPIN.Core.Installers;
 
@@ -121,6 +117,10 @@ public sealed class Bme280SensorInstaller : IInstaller
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         _bme280Sensors = new List<Bme280Sensor?>(_bme280Locations.Count);
+        for (int i = 0; i < _bme280Sensors.Count; i++)
+        {
+            _bme280Sensors.Add(null);
+        }
 
         return Task.FromResult(_bme280Locations.Any());
     }

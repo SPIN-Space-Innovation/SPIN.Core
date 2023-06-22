@@ -22,11 +22,9 @@
  * SOFTWARE.
  */
 
-using IRequest = SPIN.Core.Contracts.Requests.Abstractions.IRequest;
-
 namespace SPIN.Core.Contracts.Requests.Generic;
 
-public sealed class RegisterServicesRequest : IRequest, IRequest<IServiceProvider>
+public sealed class RegisterServicesRequest : Abstractions.IRequest, IRequest<IServiceProvider>
 {
     public Guid Id { get; } = Guid.NewGuid();
 
