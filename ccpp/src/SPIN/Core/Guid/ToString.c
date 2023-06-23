@@ -23,7 +23,7 @@
  * \endif
  */
 
-#include "SPIN/Guid.h"
+#include "SPIN/Core/Guid.h"
 
 #include <ctype.h>
 #include <stdbool.h>

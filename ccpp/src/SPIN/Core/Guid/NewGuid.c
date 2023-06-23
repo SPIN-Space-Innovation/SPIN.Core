@@ -23,28 +23,32 @@
  * \endif
  */
 
-#include "SPIN/Guid.h"
+#include "SPIN/Core/Guid.h"
 
 #include <stdbool.h>
 #include <stddef.h>
-#include <string.h>
+#include <stdint.h>
+#include <stdlib.h>
 
-#define EQUAL_COMPARISON (0)
-
-bool SPIN_Core_Guid_Equals(struct SPIN_Core_Guid_t* guidLeft, struct SPIN_Core_Guid_t* guidRight, bool* result)
+bool SPIN_Core_Guid_NewGuid(struct SPIN_Core_Guid_t* guid)
 {
-    bool guidLeftIsNull = (guidLeft == (struct SPIN_Core_Guid_t*)NULL);
-    bool guidRightIsNull = (guidRight == (struct SPIN_Core_Guid_t*)NULL);
-    bool resultIsNull = (result == (bool*)NULL);
-
-    bool argumentsAreInvalid = (guidLeftIsNull || guidRightIsNull || resultIsNull);
-    if (argumentsAreInvalid)
+    bool guidIsNull = (guid == (struct SPIN_Core_Guid_t*)NULL);
+    if (guidIsNull)
     {
         return false;
     }
 
-    int comparisonResult = memcmp((const void*)guidLeft, (const void*)guidRight, sizeof(*guidLeft));
-    bool guidsAreEqual = (comparisonResult == EQUAL_COMPARISON);
+    for (int i = 0; i < sizeof(*guid); i++)
+    {
+        ((uint8_t*)guid)[i] = (uint8_t)rand();
+    }
 
-    return guidsAreEqual;
+    ((uint8_t*)guid)[6] &= 0x0F;
+    ((uint8_t*)guid)[6] |= 0x40;
+
+
+    ((uint8_t*)guid)[8] &= 0x3F;
+    ((uint8_t*)guid)[8] |= 0x80;
+
+    return true;
 }

@@ -23,14 +23,13 @@
  * \endif
  */
 
-#include "SPIN/Guid.h"
+#include "SPIN/Core/Guid.h"
 
 #include <stdbool.h>
 #include <stddef.h>
-#include <stdint.h>
-#include <stdlib.h>
+#include <string.h>
 
-bool SPIN_Core_Guid_NewGuid(struct SPIN_Core_Guid_t* guid)
+bool SPIN_Core_Guid_EmptyGuid(struct SPIN_Core_Guid_t* guid)
 {
     bool guidIsNull = (guid == (struct SPIN_Core_Guid_t*)NULL);
     if (guidIsNull)
@@ -38,17 +37,7 @@ bool SPIN_Core_Guid_NewGuid(struct SPIN_Core_Guid_t* guid)
         return false;
     }
 
-    for (int i = 0; i < sizeof(*guid); i++)
-    {
-        ((uint8_t*)guid)[i] = (uint8_t)rand();
-    }
-
-    ((uint8_t*)guid)[6] &= 0x0F;
-    ((uint8_t*)guid)[6] |= 0x40;
-
-
-    ((uint8_t*)guid)[8] &= 0x3F;
-    ((uint8_t*)guid)[8] |= 0x80;
+    (void)memset((void*)guid, 0, sizeof(*guid));
 
     return true;
 }

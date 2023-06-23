@@ -23,21 +23,28 @@
  * \endif
  */
 
-#include "SPIN/Guid.h"
+#include "SPIN/Core/Guid.h"
 
 #include <stdbool.h>
 #include <stddef.h>
 #include <string.h>
 
-bool SPIN_Core_Guid_EmptyGuid(struct SPIN_Core_Guid_t* guid)
+#define EQUAL_COMPARISON (0)
+
+bool SPIN_Core_Guid_Equals(struct SPIN_Core_Guid_t* guidLeft, struct SPIN_Core_Guid_t* guidRight, bool* result)
 {
-    bool guidIsNull = (guid == (struct SPIN_Core_Guid_t*)NULL);
-    if (guidIsNull)
+    bool guidLeftIsNull = (guidLeft == (struct SPIN_Core_Guid_t*)NULL);
+    bool guidRightIsNull = (guidRight == (struct SPIN_Core_Guid_t*)NULL);
+    bool resultIsNull = (result == (bool*)NULL);
+
+    bool argumentsAreInvalid = (guidLeftIsNull || guidRightIsNull || resultIsNull);
+    if (argumentsAreInvalid)
     {
         return false;
     }
 
-    (void)memset((void*)guid, 0, sizeof(*guid));
+    int comparisonResult = memcmp((const void*)guidLeft, (const void*)guidRight, sizeof(*guidLeft));
+    bool guidsAreEqual = (comparisonResult == EQUAL_COMPARISON);
 
-    return true;
+    return guidsAreEqual;
 }
